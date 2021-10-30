@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <title>Chat Box</title>
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+        #container {
+            width: 60%;
+            height: 600px;
+            margin: auto;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+        /*Header*/
+        #header {
+            width: 100%;
+            height: 50px;
+            display: inline-table;
+            box-shadow: 0px 1px 10px 0px #ccc;
+        }
+        #logo {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 18pt;
+            font-weight: 600;
+        }
+        /*Sent Message*/
+        #sent-box {
+            width: 100%;
+            height: 50px;
+            box-shadow: -1px 0px 10px 0px #ccc;
+            position: absolute;
+            bottom: 0;
+        }
+        .user-sent-profile {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+        }
+        .user-sent-profile div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 600;
+        }
+        .user-input {
+            float: left;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .user-input-field .user-input:nth-child(1){
+            left: 10px;
+        }
+        .user-input-field .user-input:nth-child(2){
+            left: 60px;
+            width: 62%;
+            height: 19px;
+        }
+        .user-input-field .user-input:nth-child(3){
+            right: 20px;
+            height: 30px;
+        }
+        .user-input-field {
+            width: 50%;
+            height: 100%;
+            float: left;
+            position: relative;
+        }
+        input[type="text"] {
+            outline: none;
+            border: none;
+            background-color: #f3f3f5;
+            border-radius: 20px;
+            padding: 10px 10px;
+        }
+        input[type="button"] {
+            cursor: pointer;
+        }
+
+        /*Messge Field*/
+        #message-field {
+            width: 96%;
+            height: 73%;
+            padding: 2% 2% 5% 2%;
+            overflow-y: scroll;
+        }
+        /*Scrollbar Design*/
+        .force-overflow {
+	        min-height: 200px;
+        }
+        #message-field::-webkit-scrollbar-track
+        {
+	        background-color: #F5F5F5;
+        }
+
+        #message-field::-webkit-scrollbar
+        {
+	        width: 5px;
+	        background-color: #F5F5F5;
+        }
+
+        #message-field::-webkit-scrollbar-thumb
+        {
+            background-color: #a1a0a0;
+            border-radius: 5px;
+        }
+
+        /*Send Message*/
+        .sent-message {
+            width: 100%;
+            float: left;
+            position: relative;
+            padding-top: 15px;
+        }
+        .text-message {
+            max-width: 60%;
+            padding: 10px;
+            margin: 0 60px;
+            border-radius: 10px;
+        }
+        .bora {
+            background-color: #e6e6ee;
+        }
+        .nary {
+            background-color: #0780ff;
+            color: white;
+        }
+        .profile {
+            position: absolute;
+            bottom: 0;
+        }
+        .user-sent-profile, .bora {
+            float: left;
+        }
+        .nary-profile {
+            right: 0;
+        }
+        .nary-profile, .nary {
+            float: right;
+        }
+        .sent-message:last-child {
+            padding-bottom: 15px;
+        }
+        .force-overflow .sent-message:last-child .profile {
+            bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="container">
+        <!--Header-->
+        <div id="header">
+            <p id="logo">Chat Box</p>
+        </div>
+        <!--Message Field-->
+        <div id="message-field">
+            <!--Default Test Message-->
+            <div class="force-overflow">
+                <!--Default Test Message
+                // User A
+                <div class="sent-message">
+                    <div class="user-sent-profile profile bora">
+                        <div>B</div>
+                    </div>
+                    <div class="text-message bora">
+                        Hello!
+                    </div>
+                </div>
+                // User B
+                <div class="sent-message">
+                    <div class="user-sent-profile profile nary-profile nary">
+                        <div>N</div>
+                    </div>
+                    <div class="text-message nary">
+                        Hello!
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+        <!--Sent Message-->
+        <div id="sent-box">
+            <!--Bora Sent Message-->
+            <div class="user-input-field">
+                <div class="user-sent-profile user-input bora">
+                    <div>B</div>
+                </div>
+                <input type="text" name="bora " id="bora" class="user-input" placeholder="Aa">
+                <input type="button" value="Sent" class="user-input" id="bora-sent">
+            </div>
+            <!--Nary Sent Message-->
+            <div class="user-input-field">
+                <div class="user-sent-profile user-input nary">
+                    <div>N</div>
+                </div>
+                <input type="text" name="nary" id="nary" class="user-input" placeholder="Aa">
+                <input type="button" value="Sent" class="user-input" id="nary-sent">
+            </div>
+        </div>
+    </div>
+    <!--Script-->
+    <script>
+        $(document).ready(function(){
+            $("#bora-sent").click(function(){
+                var boraSaid = $("#bora").val();
+                var boraMessage = '<div class="sent-message"> <div class="user-sent-profile profile bora"> <div>B</div> </div> <div class="text-message bora"> ' + boraSaid + ' </div> </div>';
+                $("#bora").val()!="" ? $(".force-overflow").append(boraMessage) : alert("Please Input Bora Message!");
+                $("#bora").val("");
+                var pane = document.getElementById('message-field');
+                pane.scrollTop = pane.offsetHeight;
+            });
+            $("#nary-sent").click(function(){
+                var narySaid = $("#nary").val();
+                var naryMessage = '<div class="sent-message"> <div class="user-sent-profile profile nary-profile nary"> <div>B</div> </div> <div class="text-message nary"> ' + narySaid + ' </div> </div>';
+                $("#nary").val()!="" ? $(".force-overflow").append(naryMessage) : alert("Please Input Nary Message!");
+                $("#nary").val(""); 
+                var pane = document.getElementById('message-field');
+                pane.scrollTop = pane.offsetHeight;       
+            });
+        });
+    </script>
+</body>
+</html>
